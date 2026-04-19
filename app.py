@@ -38,9 +38,46 @@ runner = BotRunner(db)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+# ✅ دالة التحقق من صلاحية المستخدم
+def is_user_expired(user_id):
+    """ترجع True إذا كان المستخدم منتهي الصلاحية"""
+    user = db.get_user(user_id)
+    if not user or not user.get('expires_at'):
+        return True
+    try:
+        expires_at = user['expires_at']
+        if isinstance(expires_at, str):
+            expires_at = datetime.fromisoformat(expires_at.replace('Z', '+00:00'))
+        return datetime.now() > expires_at
+    except:
+        return True
+
+# ✅ دالة تنظيف المستخدمين منتهي الصلاحية (تعمل كل ساعة)
+def cleanup_expired_users():
+    """حذف جميع المستخدمين منتهي الصلاحية وبوتاتهم بشكل دوري"""
+    while True:
+        time.sleep(3600)  # كل ساعة
+        users = db.get_all_users()
+        for user in users:
+            if not user.get('is_admin', False):
+                if is_user_expired(user['id']):
+                    try:
+                        db.delete_user_with_bots(user['id'])
+                    except:
+                        pass
+
+# بدء مهمة التنظيف الدورية
+threading.Thread(target=cleanup_expired_users, daemon=True).start()
+
 def login_required(f):
     def wrapper(*args, **kwargs):
         if 'user_id' not in session:
+            return redirect(url_for('login'))
+        # ✅ فحص صلاحية المستخدم
+        if is_user_expired(session['user_id']):
+            # حذف المستخدم تلقائياً
+            db.delete_user_with_bots(session['user_id'])
+            session.clear()
             return redirect(url_for('login'))
         return f(*args, **kwargs)
     wrapper.__name__ = f.__name__
@@ -132,6 +169,10 @@ def admin_panel():
 @app.route('/api/upload_bot', methods=['POST'])
 @login_required
 def upload_bot():
+    # ✅ منع الرفع إذا انتهت الصلاحية
+    if is_user_expired(session['user_id']):
+        return jsonify({'error': 'انتهت صلاحية حسابك. لا يمكن رفع البوتات.'}), 403
+    
     if 'file' not in request.files:
         return jsonify({'error': 'لم يتم رفع ملف'}), 400
     
@@ -165,6 +206,10 @@ def upload_bot():
 @app.route('/api/start_bot/<bot_id>', methods=['POST'])
 @login_required
 def start_bot(bot_id):
+    # ✅ منع التشغيل إذا انتهت الصلاحية
+    if is_user_expired(session['user_id']):
+        return jsonify({'error': 'انتهت صلاحية حسابك. لا يمكن تشغيل البوتات.'}), 403
+    
     # التحقق من ملكية البوت
     bot = db.get_bot(bot_id)
     if not bot or bot['user_id'] != session['user_id']:
@@ -281,15 +326,19 @@ def current_user():
         })
     return jsonify({'authenticated': False})
 
-# ============== تشغيل ==============
+# ============== تشغيل متكيف مع Hugging Face ==============
 if __name__ == '__main__':
+    import os
+    
+    # المنفذ المطلوب من Hugging Face Spaces هو 7860
+    # استخدام متغير البيئة PORT هو أفضل الممارسات
+    port = int(os.environ.get('PORT', 7860))
+    
     print("\n" + "="*60)
     print("🚀 NASSIM HOSTING - تم تشغيل السيرفر")
     print("="*60)
-    print(f"🌐 العنوان: http://localhost:5000")
     print(f"🎫 كود المشرف: {MASTER_CODE}")
-    print(f"👤 اسم المشرف: {ADMIN_USERNAME}")
     print("="*60 + "\n")
     
-    # تشغيل التطبيق
-    socketio.run(app, host='0.0.0.0', port=5000, debug=False, allow_unsafe_werkzeug=True)
+    # تشغيل Flask على المنفذ الصحيح
+    app.run(host='0.0.0.0', port=port, debug=False)
