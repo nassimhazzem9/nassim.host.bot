@@ -3,6 +3,7 @@ import secrets
 import string
 from datetime import datetime, timedelta
 import json
+import os
 
 class Database:
     def __init__(self, db_path='nassim_hosting.db'):
@@ -106,7 +107,15 @@ class Database:
             existing_user = cursor.fetchone()
             
             if existing_user:
-                # المستخدم موجود - دخول مباشر
+                # ✅ فحص صلاحية الحساب (تاريخ الانتهاء)
+                expires_at = existing_user['expires_at']
+                if expires_at:
+                    expiry = datetime.fromisoformat(expires_at.replace('Z', '+00:00'))
+                    if datetime.now() > expiry:
+                        # انتهت الصلاحية - حذف المستخدم وبوتاته
+                        self.delete_user_with_bots(existing_user['id'])
+                        return None
+                # المستخدم موجود وصلاحيته سارية
                 return dict(existing_user)
             
             # ✅ ثانياً: البحث عن كود جديد في جدول الأكواد
@@ -125,6 +134,13 @@ class Database:
                 cursor.execute('SELECT * FROM users WHERE id = ?', (code_data['used_by'],))
                 existing = cursor.fetchone()
                 if existing:
+                    # فحص صلاحية المستخدم المرتبط
+                    expires_at = existing['expires_at']
+                    if expires_at:
+                        expiry = datetime.fromisoformat(expires_at.replace('Z', '+00:00'))
+                        if datetime.now() > expiry:
+                            self.delete_user_with_bots(existing['id'])
+                            return None
                     return dict(existing)
             
             # ✅ إنشاء مستخدم جديد (للكود الجديد فقط)
@@ -287,3 +303,22 @@ class Database:
                 'total_bots': total_bots,
                 'active_bots': active_bots
             }
+
+    # ✅ دالة حذف المستخدم وجميع بوتاته مع ملفاتها
+    def delete_user_with_bots(self, user_id):
+        """حذف المستخدم وجميع البوتات المرتبطة به مع ملفاتها من القرص"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            # جلب مسارات ملفات البوتات لحذفها من القرص
+            cursor.execute('SELECT file_path FROM bots WHERE user_id = ?', (user_id,))
+            bot_files = cursor.fetchall()
+            for (file_path,) in bot_files:
+                try:
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                except Exception as e:
+                    print(f"فشل حذف ملف البوت: {file_path} - {e}")
+            # حذف البوتات من قاعدة البيانات
+            cursor.execute('DELETE FROM bots WHERE user_id = ?', (user_id,))
+            # حذف المستخدم (مع استثناء المشرف)
+            cursor.execute('DELETE FROM users WHERE id = ? AND is_admin = 0', (user_id,))
