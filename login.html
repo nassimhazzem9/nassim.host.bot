@@ -1,557 +1,592 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html dir="rtl" lang="ar">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>تسجيل الدخول - NASSIM HOSTING</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
-    
-    :root {
-      --primary: #00ff88;
-      --primary-dark: #00cc66;
-      --primary-light: #33ff99;
-      --accent-glow: #00ff88;
-      --gradient: linear-gradient(90deg, #00ff88, #00aa55, #00ff88);
-      --bg-dark: #050a05;
-      --bg-card: rgba(5, 15, 5, 0.95);
-      --text: #ffffff;
-      --text-muted: #a0a0a0;
-      --border-color: #1a3a1a;
-    }
-    
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>تسجيل الدخول - NASSIM HOST</title>
+<!-- الخطوط -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Tajawal:wght@300;400;500;700&amp;family=Rajdhani:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<style>
+    /* الأساسيات - تم الحفاظ على جميع التنسيقات الأسطورية */
     * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
     }
     
     body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--bg-dark);
-      color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+        font-family: 'Tajawal', 'Rajdhani', sans-serif;
+        background: linear-gradient(135deg, #0a1f0a 0%, #071a07 100%);
+        color: #fff;
+        direction: rtl;
+        min-height: 100vh;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        touch-action: manipulation;
     }
-    
-    .background-animation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-    
-    .fast-line {
-      position: absolute;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-      height: 2px;
-      filter: blur(0.5px);
-      opacity: 0.4;
-      animation: fastLineMove 8s linear infinite;
-      box-shadow: 0 0 20px var(--primary);
-    }
-    
-    .gold-line {
-      position: absolute;
-      background: linear-gradient(90deg, transparent, var(--primary), transparent);
-      height: 3px;
-      filter: blur(0px);
-      opacity: 0.6;
-      animation: goldLineMove 10s linear infinite;
-      box-shadow: 0 0 30px var(--primary);
-    }
-    
-    @keyframes fastLineMove {
-      0% { transform: translateX(-100vw) rotate(0deg); }
-      100% { transform: translateX(100vw) rotate(360deg); }
-    }
-    
-    @keyframes goldLineMove {
-      0% { transform: translateX(-120vw) rotate(30deg); }
-      100% { transform: translateX(120vw) rotate(390deg); }
-    }
-    
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.02); opacity: 0.95; }
-    }
-    
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-    @keyframes glowPulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
-      50% { box-shadow: 0 0 40px rgba(0, 255, 136, 0.6); }
-    }
-    
-    .login-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      animation: slideIn 0.8s ease-out;
-    }
-    
-    .logo-section {
-      text-align: center;
-      margin-bottom: 40px;
-      position: relative;
+
+    /* شريط التنقل الذكي */
+    .navbar {
+        background: rgba(10, 20, 15, 0.95);
+        border-bottom: 2px solid #0aff64;
+        padding: 12px 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 5px 25px rgba(10, 255, 100, 0.15);
+        backdrop-filter: blur(15px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-radius: 0 0 15px 15px;
     }
     
     .logo {
-      font-size: 3.2rem;
-      font-weight: 900;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 10px;
-      animation: pulse 3s infinite;
-      text-shadow: 0 0 50px rgba(0, 255, 136, 0.5);
-      letter-spacing: 3px;
-      text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
     
-    .logo span {
-      color: var(--primary);
-      text-shadow: 0 0 30px var(--primary);
+    .logo-icon {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(135deg, #0aff64 0%, #00ff88 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 20px rgba(10, 255, 100, 0.5);
     }
     
-    .tagline {
-      color: var(--text-muted);
-      font-size: 1rem;
-      margin-top: 10px;
-      font-weight: 400;
-      letter-spacing: 1px;
+    .logo-icon i {
+        font-size: 22px;
+        color: #fff;
     }
     
-    .card {
-      background: var(--bg-card);
-      backdrop-filter: blur(15px);
-      border-radius: 24px;
-      padding: 40px;
-      width: 100%;
-      max-width: 460px;
-      border: 1px solid rgba(0, 255, 136, 0.2);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
-      position: relative;
-      overflow: hidden;
+    .logo-text {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 22px;
+        font-weight: 900;
+        background: linear-gradient(90deg, #0aff64, #00ff88);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 10px rgba(10, 255, 100, 0.3);
+    }
+
+    /* الحاوية الرئيسية */
+    .login-container {
+        width: 92%;
+        max-width: 480px;
+        margin: 50px auto 30px;
+        background: rgba(15, 25, 20, 0.85);
+        padding: 30px;
+        border-radius: 20px;
+        border: 2px solid rgba(74, 111, 255, 0.3);
+        box-shadow: 0 10px 30px rgba(10, 255, 100, 0.1);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+        transition: all 0.3s ease;
     }
     
-    .card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--gradient);
+    .login-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #4a6fff, #6a5af9);
+        border-radius: 20px 20px 0 0;
     }
     
-    .form-title {
-      text-align: center;
-      font-size: 1.6rem;
-      margin-bottom: 30px;
-      color: var(--text);
-      font-weight: 700;
-      position: relative;
-      display: inline-block;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+    .login-container:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(74, 111, 255, 0.2);
+    }
+
+    /* عنوان البطاقة */
+    .card-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(10, 255, 100, 0.2);
     }
     
-    .form-title::after {
-      content: '';
-      position: absolute;
-      bottom: -10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 60px;
-      height: 3px;
-      background: var(--gradient);
-      border-radius: 2px;
-      box-shadow: 0 0 20px var(--primary);
+    .card-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #4a6fff 0%, #6a5af9 100%);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(74, 111, 255, 0.3);
     }
     
-    .form-group {
-      margin-bottom: 25px;
-      position: relative;
+    .card-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #b0ffd0;
+        font-family: 'Orbitron', sans-serif;
     }
     
-    .form-group label {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--text-muted);
-      font-size: 1rem;
-      font-weight: 600;
-      transition: all 0.3s;
-      letter-spacing: 0.5px;
+    .card-subtitle {
+        font-size: 14px;
+        color: #90ffb0;
+        margin-top: 5px;
+    }
+
+    /* حقول الإدخال */
+    .input-group {
+        margin-bottom: 20px;
+    }
+    
+    .input-group label {
+        display: block;
+        margin-bottom: 10px;
+        color: #b0ffd0;
+        font-weight: 600;
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
     }
     
     .input-wrapper {
-      position: relative;
+        position: relative;
+    }
+    
+    .input-wrapper input {
+        width: 100%;
+        padding: 16px 20px;
+        padding-right: 50px;
+        border: 2px solid rgba(74, 111, 255, 0.2);
+        border-radius: 12px;
+        background: rgba(20, 30, 25, 0.7);
+        color: #fff;
+        font-size: 16px;
+        font-family: 'Tajawal', sans-serif;
+        transition: all 0.3s;
+        -webkit-appearance: none;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+    
+    .input-wrapper input:focus {
+        border-color: #4a6fff;
+        box-shadow: 0 0 0 3px rgba(74, 111, 255, 0.2);
+        outline: none;
+        background: rgba(20, 30, 25, 0.9);
     }
     
     .input-icon {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1.2rem;
-      color: var(--primary);
-      opacity: 0.7;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #4a6fff;
+        font-size: 18px;
+    }
+
+    /* الكابتشا */
+    .captcha-group {
+        background: rgba(20, 30, 25, 0.7);
+        border: 2px solid rgba(74, 111, 255, 0.2);
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
     }
     
-    .form-group input {
-      width: 100%;
-      padding: 16px 50px 16px 20px;
-      background: rgba(0, 20, 0, 0.6);
-      border: 2px solid var(--border-color);
-      border-radius: 14px;
-      color: var(--text);
-      font-size: 1.2rem;
-      font-family: 'Cairo', sans-serif;
-      transition: all 0.3s;
-      font-weight: 500;
-      text-align: center;
-      letter-spacing: 3px;
+    .captcha-group::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, #4a6fff, #6a5af9);
     }
     
-    .form-group input:focus {
-      outline: none;
-      border-color: var(--primary);
-      background: rgba(0, 255, 136, 0.05);
-      box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-      animation: glowPulse 2s infinite;
+    .captcha-question {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 22px;
+        color: #4a6fff;
+        margin-bottom: 15px;
+        text-shadow: 0 0 5px rgba(74, 111, 255, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
     }
     
-    .form-group input:hover {
-      border-color: rgba(0, 255, 136, 0.5);
+    .captcha-question i {
+        color: #0aff64;
+    }
+
+    /* الأزرار */
+    .btn {
+        width: 100%;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: 'Tajawal', sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        position: relative;
+        overflow: hidden;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
     }
     
-    .form-group input::placeholder {
-      color: var(--text-muted);
-      letter-spacing: normal;
-      font-size: 1rem;
+    .btn-primary {
+        background: linear-gradient(135deg, #4a6fff 0%, #6a5af9 100%);
+        color: white;
+        box-shadow: 0 5px 15px rgba(74, 111, 255, 0.3);
     }
     
-    .btn-login {
-      width: 100%;
-      padding: 18px;
-      background: var(--gradient);
-      border: none;
-      border-radius: 14px;
-      color: #000;
-      font-size: 1.2rem;
-      font-weight: 800;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-top: 15px;
-      font-family: 'Cairo', sans-serif;
-      position: relative;
-      overflow: hidden;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #6a5af9 0%, #4a6fff 100%);
+        box-shadow: 0 8px 25px rgba(74, 111, 255, 0.4);
+        transform: translateY(-2px);
     }
     
-    .btn-login:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
     }
     
-    .btn-login::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: 0.5s;
+    .btn:hover::before {
+        left: 100%;
     }
     
-    .btn-login:hover::before {
-      left: 100%;
+    .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    /* التنبيهات */
+    .alert {
+        padding: 15px;
+        border-radius: 10px;
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        animation: slideIn 0.3s ease;
+        backdrop-filter: blur(5px);
     }
     
-    .btn-login:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .alert-error {
+        background: rgba(255, 65, 108, 0.15);
+        border: 1px solid #ff416c;
+        color: #ffb5b5;
     }
     
-    .message {
-      padding: 14px;
-      margin-top: 20px;
-      border-radius: 12px;
-      text-align: center;
-      font-size: 1rem;
-      animation: slideIn 0.5s;
-      display: none;
-      font-weight: 600;
+    .alert-success {
+        background: rgba(10, 255, 100, 0.15);
+        border: 1px solid #0aff64;
+        color: #b0ffd0;
     }
     
-    .success {
-      background: rgba(0, 255, 136, 0.1);
-      border: 1px solid var(--primary);
-      color: var(--primary);
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
-    
-    .error {
-      background: rgba(255, 68, 68, 0.1);
-      border: 1px solid #ff4444;
-      color: #ff4444;
+
+    /* التذييل */
+    .footer {
+        text-align: center;
+        margin-top: 40px;
+        padding: 25px;
+        color: #90ffb0;
+        font-size: 14px;
+        border-top: 1px solid rgba(10, 255, 100, 0.2);
+        background: rgba(10, 20, 15, 0.8);
+        backdrop-filter: blur(5px);
     }
-    
-    .info {
-      background: rgba(0, 170, 255, 0.1);
-      border: 1px solid #00aaff;
-      color: #00aaff;
-    }
-    
-    .login-footer {
-      margin-top: 30px;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-    }
-    
-    .login-footer a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-    
-    .login-footer a:hover {
-      text-shadow: 0 0 10px var(--primary);
-    }
-    
-    .stats-mini {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 25px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border-color);
-    }
-    
-    .stat-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .stat-item .stat-value {
-      font-size: 1.3rem;
-      color: var(--primary);
-    }
-    
-    .stat-item .stat-label {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    
-    .loading {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 40px;
-      height: 40px;
-      border: 3px solid rgba(0, 255, 136, 0.2);
-      border-top: 3px solid var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-    }
-    
-    @keyframes spin {
-      0% { transform: translate(-50%, -50%) rotate(0deg); }
-      100% { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-    
+
+    /* تحسينات للجوال */
     @media (max-width: 768px) {
-      .card { padding: 30px 20px; }
-      .logo { font-size: 2.5rem; }
-      .tagline { font-size: 0.9rem; }
-      .form-title { font-size: 1.4rem; }
+        .navbar { padding: 15px; }
+        .login-container { padding: 25px; margin-top: 40px; width: 95%; }
+        .logo-text { font-size: 20px; }
     }
-  </style>
+    
+    @media (max-width: 480px) {
+        .input-wrapper input { padding: 14px 20px; padding-right: 45px; font-size: 15px; }
+        .btn { padding: 14px; font-size: 16px; }
+        .card-header { flex-direction: column; text-align: center; gap: 10px; }
+        .card-icon { width: 45px; height: 45px; font-size: 20px; }
+        .captcha-question { font-size: 18px; }
+    }
+
+    /* شريط التمرير المخصص */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(10, 20, 15, 0.5); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, #0aff64, #00ff88); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #00ff88, #0aff64); }
+    
+    /* تحسينات iOS */
+    input, textarea, select { font-size: 16px !important; }
+    
+    /* تأثير التحميل */
+    .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #4a6fff;
+        animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin { to { transform: rotate(360deg); } }
+    
+    .message { margin-top: 15px; }
+</style>
 </head>
 <body>
-  <div class="background-animation" id="backgroundAnimation"></div>
-  
-  <div class="login-container">
-    <div class="card">
-      <div class="logo-section">
-        <div class="logo">⚡ NASSIM <span>HOST</span></div>
-        <div class="tagline">استضافة بوتات تليجرام المتطورة</div>
-      </div>
-      
-      <div id="loginForm">
-        <h2 class="form-title">🔐 أدخل كود التفعيل</h2>
-        
-        <div class="form-group">
-          <label for="activation_code">🎫 كود التفعيل</label>
-          <div class="input-wrapper">
-            <span class="input-icon">🎫</span>
-            <input 
-              type="text" 
-              id="activation_code" 
-              placeholder="أدخل الكود المكون من 10 أحرف" 
-              maxlength="10" 
-              autocomplete="off"
-              autofocus
-            >
-          </div>
-        </div>
-        
-        <button class="btn-login" onclick="login()" id="loginBtn">
-          <span id="loginText">🚀 دخول إلى لوحة التحكم</span>
-          <div class="loading" id="loginLoading"></div>
-        </button>
-        
-        <div id="message" class="message"></div>
-        
-        <div class="login-footer">
-          <p>للحصول على كود التفعيل، تواصل مع المشرف</p>
-          <a href="https://t.me/NASSIM" target="_blank">@NASSIM</a>
-        </div>
-        
-        <div class="stats-mini">
-          <div class="stat-item"><span class="stat-value">🚀</span><span class="stat-label">سريع</span></div>
-          <div class="stat-item"><span class="stat-value">🔒</span><span class="stat-label">آمن</span></div>
-          <div class="stat-item"><span class="stat-value">24/7</span><span class="stat-label">مستمر</span></div>
-          <div class="stat-item"><span class="stat-value">⚡</span><span class="stat-label">مستقر</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- شريط التنقل الذكي -->
+<nav class="navbar">
+<div class="logo">
+<div class="logo-icon">
+<i class="fas fa-code"></i>
+</div>
+<div>
+<div class="logo-text">NASSIM HOST</div>
+<div style="font-size: 11px; color: #90ffb0;">استضافة البوتات المتطورة</div>
+</div>
+</div>
+</nav>
 
-  <script>
-    function createAnimatedBackground() {
-      const container = document.getElementById('backgroundAnimation');
-      container.innerHTML = '';
-      
-      for (let i = 0; i < 12; i++) {
-        const line = document.createElement('div');
-        line.className = 'fast-line';
-        line.style.top = `${Math.random() * 100}%`;
-        line.style.left = `${Math.random() * 100}%`;
-        line.style.width = `${250 + Math.random() * 350}px`;
-        line.style.animationDelay = `${Math.random() * 3}s`;
-        line.style.animationDuration = `${7 + Math.random() * 5}s`;
-        line.style.opacity = `${0.3 + Math.random() * 0.4}`;
-        container.appendChild(line);
-      }
-      
-      for (let i = 0; i < 5; i++) {
-        const line = document.createElement('div');
-        line.className = 'gold-line';
-        line.style.top = `${Math.random() * 100}%`;
-        line.style.left = `${Math.random() * 100}%`;
-        line.style.width = `${200 + Math.random() * 300}px`;
-        line.style.animationDelay = `${Math.random() * 4}s`;
-        line.style.animationDuration = `${9 + Math.random() * 4}s`;
-        line.style.opacity = `${0.5 + Math.random() * 0.3}`;
-        container.appendChild(line);
-      }
+<!-- حاوية تسجيل الدخول -->
+<div class="login-container">
+<div class="card-header">
+<div class="card-icon">
+<i class="fas fa-shield-alt"></i>
+</div>
+<div>
+<div class="card-title">دخول آمن</div>
+<div class="card-subtitle">أدخل كود التفعيل + تحقق من الكابتشا</div>
+</div>
+</div>
+
+<!-- نموذج تسجيل الدخول بالكود والكابتشا -->
+<form id="loginForm" onsubmit="login(); return false;">
+<div class="input-group">
+<label for="activation_code">
+<i class="fas fa-ticket-alt"></i>
+            كود التفعيل (10 أحرف)
+        </label>
+<div class="input-wrapper">
+<input autocomplete="off" id="activation_code" name="activation_code" placeholder="أدخل 10 أحرف" maxlength="10" required="" type="text" autofocus/>
+<div class="input-icon">
+<i class="fas fa-barcode"></i>
+</div>
+</div>
+</div>
+
+<!-- نظام الكابتشا الرياضي -->
+<div class="captcha-group">
+<div class="captcha-question">
+<i class="fas fa-shield-virus"></i>
+<span id="captchaQuestion">6 + 5 = ?</span>
+</div>
+<div class="input-wrapper">
+<input id="captcha" name="captcha" placeholder="أدخل الناتج" required="" type="text" inputmode="numeric"/>
+<div class="input-icon">
+<i class="fas fa-calculator"></i>
+</div>
+</div>
+</div>
+
+<button class="btn btn-primary" id="loginBtn" type="submit">
+<i class="fas fa-sign-in-alt"></i>
+        تسجيل الدخول
+    </button>
+
+<!-- منطقة عرض الرسائل -->
+<div id="message" class="message"></div>
+</form>
+</div>
+
+<!-- التذييل -->
+<div class="footer">
+<i class="fas fa-cloud-upload-alt" style="margin-left: 8px;"></i>
+    NASSIM HOSTING | لوحة تحكم استضافة البوتات
+    <br/>
+<span style="font-size: 12px; opacity: 0.8;">
+    الإصدار 2.0 | تصميم أسطوري + حماية كابتشا
+</span>
+</div>
+
+<script>
+    // ========== إعداد الكابتشا ==========
+    let currentCaptchaAnswer = 0;
+    
+    function generateCaptcha() {
+        const num1 = Math.floor(Math.random() * 10) + 1; // 1-10
+        const num2 = Math.floor(Math.random() * 10) + 1; // 1-10
+        currentCaptchaAnswer = num1 + num2;
+        document.getElementById('captchaQuestion').innerHTML = 
+            `<i class="fas fa-shield-virus"></i> ${num1} + ${num2} = ?`;
     }
     
+    // ========== دوال مساعدة ==========
     function showMessage(text, type) {
-      const msgDiv = document.getElementById('message');
-      msgDiv.textContent = text;
-      msgDiv.className = `message ${type}`;
-      msgDiv.style.display = 'block';
-      setTimeout(() => { msgDiv.style.display = 'none'; }, 5000);
+        const msgDiv = document.getElementById('message');
+        msgDiv.innerHTML = `<div class="alert alert-${type}"><i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${text}</div>`;
     }
-    
-    function resetLoginButton() {
-      const text = document.getElementById('loginText');
-      const loading = document.getElementById('loginLoading');
-      const btn = document.getElementById('loginBtn');
-      text.style.display = 'inline';
-      loading.style.display = 'none';
-      btn.disabled = false;
+
+    function clearMessage() {
+        document.getElementById('message').innerHTML = '';
     }
-    
-    async function login() {
-      const code = document.getElementById('activation_code').value.trim().toUpperCase();
-      
-      if (!code) {
-        showMessage('❌ يرجى إدخال كود التفعيل', 'error');
-        return;
-      }
-      
-      if (code.length !== 10) {
-        showMessage('❌ يجب أن يكون الكود 10 أحرف بالضبط', 'error');
-        return;
-      }
-      
-      const btn = document.getElementById('loginBtn');
-      const text = document.getElementById('loginText');
-      const loading = document.getElementById('loginLoading');
-      
-      text.style.display = 'none';
-      loading.style.display = 'block';
-      btn.disabled = true;
-      
-      try {
-        const response = await fetch('/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: `activation_code=${encodeURIComponent(code)}`
-        });
-        
-        const contentType = response.headers.get('content-type');
-        
-        if (contentType && contentType.includes('application/json')) {
-          const data = await response.json();
-          if (data.success) {
-            showMessage(data.is_admin ? '✨ تم الدخول كمسؤول، جاري التوجيه...' : '✅ تم تسجيل الدخول بنجاح', 'success');
-            setTimeout(() => { window.location.href = data.redirect || '/dashboard'; }, 1000);
-          } else {
-            showMessage('❌ ' + (data.error || 'كود التفعيل غير صحيح أو منتهي الصلاحية'), 'error');
-            resetLoginButton();
-          }
+
+    function setLoading(isLoading) {
+        const btn = document.getElementById('loginBtn');
+        const icon = btn.querySelector('i');
+        if (isLoading) {
+            btn.disabled = true;
+            icon.className = 'fas fa-spinner fa-spin';
         } else {
-          window.location.href = '/dashboard';
+            btn.disabled = false;
+            icon.className = 'fas fa-sign-in-alt';
         }
-      } catch (error) {
-        console.error('Login error:', error);
-        showMessage('⚠️ خطأ في الاتصال بالخادم', 'error');
-        resetLoginButton();
-      }
     }
-    
-    document.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') login();
-    });
-    
+
+    // تنسيق الكود - أحرف وأرقام فقط
     document.getElementById('activation_code').addEventListener('input', function(e) {
-      e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
+        e.target.value = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 10);
     });
-    
-    async function checkAuth() {
-      try {
-        const response = await fetch('/api/current_user');
-        const data = await response.json();
-        if (data.authenticated) window.location.href = '/dashboard';
-      } catch (error) {}
+
+    // ========== تسجيل الدخول ==========
+    async function login() {
+        const codeInput = document.getElementById('activation_code');
+        const captchaInput = document.getElementById('captcha');
+        const code = codeInput.value.trim().toUpperCase();
+        const captchaValue = captchaInput.value.trim();
+        
+        // التحقق من الكود
+        if (!code) {
+            showMessage('يرجى إدخال كود التفعيل', 'error');
+            codeInput.focus();
+            return;
+        }
+        
+        if (code.length !== 10) {
+            showMessage('يجب أن يتكون الكود من 10 أحرف بالضبط', 'error');
+            codeInput.focus();
+            return;
+        }
+        
+        // التحقق من الكابتشا
+        if (!captchaValue) {
+            showMessage('يرجى إدخال ناتج الكابتشا', 'error');
+            captchaInput.focus();
+            return;
+        }
+        
+        if (parseInt(captchaValue) !== currentCaptchaAnswer) {
+            showMessage('إجابة الكابتشا غير صحيحة', 'error');
+            captchaInput.value = '';
+            captchaInput.focus();
+            generateCaptcha(); // تجديد السؤال
+            return;
+        }
+
+        clearMessage();
+        setLoading(true);
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `activation_code=${encodeURIComponent(code)}`
+            });
+
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                const data = await response.json();
+                if (data.success) {
+                    showMessage(data.is_admin ? '✨ دخول المشرف - جاري التوجيه...' : '✅ تم التحقق، جاري التوجيه...', 'success');
+                    setTimeout(() => {
+                        window.location.href = data.redirect || (data.is_admin ? '/admin' : '/dashboard');
+                    }, 1000);
+                } else {
+                    showMessage(data.error || 'كود التفعيل غير صحيح أو منتهي الصلاحية', 'error');
+                    setLoading(false);
+                    generateCaptcha(); // تجديد الكابتشا بعد الخطأ
+                }
+            } else {
+                window.location.href = '/dashboard';
+            }
+        } catch (error) {
+            console.error('Login error:', error);
+            showMessage('⚠️ خطأ في الاتصال بالخادم. حاول مجدداً.', 'error');
+            setLoading(false);
+            generateCaptcha();
+        }
     }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      createAnimatedBackground();
-      setTimeout(checkAuth, 500);
+
+    // دعم زر Enter
+    document.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            login();
+        }
     });
-  </script>
+
+    // التحقق من حالة تسجيل الدخول الحالية
+    async function checkAuth() {
+        try {
+            const response = await fetch('/api/current_user');
+            const data = await response.json();
+            if (data.authenticated) {
+                window.location.href = data.is_admin ? '/admin' : '/dashboard';
+            }
+        } catch (error) {
+            // لا يوجد جلسة نشطة
+        }
+    }
+
+    // تهيئة الصفحة
+    document.addEventListener('DOMContentLoaded', () => {
+        generateCaptcha();
+        checkAuth();
+        
+        // تحسينات iOS
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('focus', function() {
+                    setTimeout(() => this.scrollIntoView({ behavior: 'smooth', block: 'center' }), 300);
+                });
+            });
+        }
+    });
+</script>
 </body>
 </html>
